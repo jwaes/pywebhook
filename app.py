@@ -10,7 +10,7 @@ influxdb.init_app(app=app)
 @app.route('/webhook', methods=['POST'])
 def respond():
     print(request.json)
-    influx_db.write_points(
+    influxdb.write_points(
         [
             {
                 "fields": {"raw":request.json},
