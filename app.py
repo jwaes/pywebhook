@@ -10,12 +10,12 @@ influxdb.init_app(app=app)
 
 @app.route('/webhook', methods=['POST'])
 def respond():
-    if request.content_type != 'application/json':
+    if not request.content_type.startswith('application/json'):
         print(request.content_type)
         print(request.data)
         return Response(status=400)
-    else
-        print(request.json) 
+    else:
+        print("OK: ", request.json) 
 
         influxdb.write_points(
             [
