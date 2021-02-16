@@ -19,7 +19,7 @@ services:
 networks:
   grafana:
     external:
-      name: grafana
+      name: grafana_grafana
   web:
     external:
       name: web        
