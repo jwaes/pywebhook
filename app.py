@@ -15,7 +15,7 @@ def respond():
         print(request.data)
         return Response(status=400)
     else:
-        print("OK: ", request.json) 
+        print("OK:", request.json, request.data, sep=" ") 
 
         influxdb.write_points(
             [
