@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, Response
 from flask_influxdb import InfluxDB
 
 influxdb = InfluxDB()
@@ -9,7 +9,7 @@ influxdb.init_app(app=app)
 
 @app.route('/webhook', methods=['POST'])
 def respond():
-    print(request.json);
+    print(request.json)
     influx_db.write_points(
         [
             {
