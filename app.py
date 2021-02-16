@@ -1,5 +1,6 @@
 from flask import Flask, request, Response
 from flask_influxdb import InfluxDB
+import json
 
 influxdb = InfluxDB()
 
@@ -13,7 +14,7 @@ def respond():
     influxdb.write_points(
         [
             {
-                "fields": {"raw":request.json},
+                "fields": {"raw":json.dumps(request.json)},
                 "measurement": "tv_webhook_raw",
             }
         ]
