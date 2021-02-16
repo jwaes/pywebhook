@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_influxdb import InfluxDB
 
-influx_db = InfluxDB()
+influxdb = InfluxDB()
 
 app = Flask(__name__)
 app.config.from_pyfile("config.cfg")
