@@ -4,7 +4,7 @@ from flask_influxdb import InfluxDB
 influx_db = InfluxDB()
 
 app = Flask(__name__)
-app.config.from_pyfile("example.cfg")
+app.config.from_pyfile("config.cfg")
 influxdb.init_app(app=app)
 
 @app.route('/webhook', methods=['POST'])
