@@ -3,8 +3,23 @@ version: '3.4'
 services:
   pywebhook:
     image: pywebhook
+    container_name: influxdb
     build:
       context: .
       dockerfile: ./Dockerfile
-    ports:
-      - 5000:5000
+    networks:
+      - grafana
+      - web      
+    environment:      
+      - VIRTUAL_HOST=${HOSTNAME}
+      - LETSENCRYPT_HOST=${HOSTNAME}
+      - LETSENCRYPT_EMAIL=jaco@jaco.tech
+      - VIRTUAL_PORT=5000
+
+networks:
+  grafana:
+    external:
+      name: grafana
+  web:
+    external:
+      name: web        
