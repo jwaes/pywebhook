@@ -15,13 +15,20 @@ def respond():
         print(request.data)
         return Response(status=400)
     else:
-        print("OK:", request.json, request.data, sep=" ") 
+        print("OK:", request.json, sep=" ") 
 
         influxdb.write_points(
             [
                 {
-                    "fields": {"raw":json.dumps(request.json)},
-                    "measurement": "tv_webhook_raw",
+                    "fields": {
+                    "action": request.json.buy,
+                    "source": request.json.source,
+                    "ticker": request.json.ticker,
+                    "exchange": request.json.exchange,
+                    "interval": request.json.interval,
+                    "close": request.json.close
+                    },
+                    "measurement": "tv_webhook_data",
                 }
             ]
         )
