@@ -21,12 +21,12 @@ def respond():
             [
                 {
                     "fields": {
-                    "action": request.json.action,
-                    "source": request.json.source,
-                    "ticker": request.json.ticker,
-                    "exchange": request.json.exchange,
-                    "interval": request.json.interval,
-                    "close": request.json.close
+                    "action": request.json['action'],
+                    "source": request.json['source'],
+                    "ticker": request.json['ticker'],
+                    "exchange": request.json['exchange'],
+                    "interval": request.json['interval'],
+                    "close": request.json['close']
                     },
                     "measurement": "tv_webhook_data",
                 }
