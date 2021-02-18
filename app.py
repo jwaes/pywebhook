@@ -26,7 +26,7 @@ def respond():
                     "ticker": request.json['ticker'],
                     "exchange": request.json['exchange'],
                     "interval": request.json['interval'],
-                    "close": request.json['close']
+                    "close": float(request.json['close'])
                     },
                     "measurement": "tv_webhook_data",
                 }
