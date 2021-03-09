@@ -2,11 +2,9 @@ from flask import Flask, request, Response
 from flask_influxdb import InfluxDB
 import json
 
-influxdb = InfluxDB()
-
 app = Flask(__name__)
 app.config.from_pyfile("config.cfg")
-influxdb.init_app(app=app)
+influxdb = InfluxDB(app=app)
 
 @app.route('/webhook', methods=['POST'])
 def respond():
