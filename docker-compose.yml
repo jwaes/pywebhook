@@ -9,7 +9,8 @@ services:
       context: .
       dockerfile: ./Dockerfile
     networks:
-      - web      
+      - web
+      - influx   
     environment:      
       - VIRTUAL_HOST=${HOSTNAME}
       - LETSENCRYPT_HOST=${HOSTNAME}
@@ -20,3 +21,6 @@ networks:
   web:
     external:
       name: web        
+  influx:
+    external:
+      name: influx_influx
