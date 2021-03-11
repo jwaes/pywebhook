@@ -50,10 +50,10 @@ def history():
 def table():
     data_measurement = "tv_webhook_data"
     # OK: {'action': 'buy', 'source': 'mdx', 'user': 'jaco', 'ticker': 'BTCUSD', 'exchange': 'BYBIT', 'interval': '15', 'close': 57752} | 52.32.178.7
-    data_tags = ["time", "source", "ticker", "ticker", "exchange", "interval", "close"]
+    data_tags = ["time", "source", "ticker", "exchange", "interval", "close"]
 
     tabledata = influxdb.query(
-        "SELECT {0} from {1}".format(", ".join(data_tags), data_measurement)
+        "SELECT {0} from {1} where ticker='BTCUSD' and source='vmc'".format(", ".join(data_tags), data_measurement)
     )
 
     data_points = []
