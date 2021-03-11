@@ -2,17 +2,17 @@ from flask import Flask, request, Response, render_template
 from flask_influxdb import InfluxDB
 import json
 
-if request.headers.getlist("X-Forwarded-For"):
-   ip = request.headers.getlist("X-Forwarded-For")[0]
-else:
-   ip = request.remote_addr
-
 app = Flask(__name__)
 app.config.from_pyfile("config.cfg")
 influxdb = InfluxDB(app=app)
 
 @app.route('/webhook', methods=['POST'])
 def respond():
+    if request.headers.getlist("X-Forwarded-For"):
+        ip = request.headers.getlist("X-Forwarded-For")[0]
+    else:
+        ip = request.remote_addr
+
     if not request.content_type.startswith('application/json'):
         print(request.content_type)
         print(request.data)
