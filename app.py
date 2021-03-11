@@ -44,7 +44,30 @@ def home():
 
 @app.route('/history')
 def history():
-    return 'history comes here'    
+    return 'history comes here'
+
+@app.route('/table') 
+def table():
+    data_measurement = "tv_webhook_data"
+    # OK: {'action': 'buy', 'source': 'mdx', 'user': 'jaco', 'ticker': 'BTCUSD', 'exchange': 'BYBIT', 'interval': '15', 'close': 57752} | 52.32.178.7
+    data_tags = ["time", "source", "mdx", "ticker", "ticker", "exchange", "interval", "close"]
+
+    tabledata = influxdb.query(
+        "SELECT {0} from {1}".format(", ".join(data_tags), data_measurement)
+    )
+
+    data_points = []
+    for measurement, tags in tabledata.keys():
+        for p in tabledata.get_points(measurement=measurement, tags=tags):
+            data_points.append(p)
+
+    return render_template(
+        "table.html",
+        measurement=data_measurement,
+        columns=data_tags,
+        points=data_points,
+        )    
+
 
 
 if __name__ == "__main__":

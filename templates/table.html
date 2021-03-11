@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Table{% endblock %}
+
+{% block content %}
+<h1>{{ measurement }}</h1>
+<table>
+    <tr>
+        {% for heading in columns %}
+            <th>{{ heading }}</th>
+        {% endfor %}
+    </tr>
+    {% for row in points %}
+        <tr>
+            {% set rowloop = loop %}
+            {% for heading in columns %}
+                <td id="cell-{{ rowloop.index }}-{{ loop.index }}">{{ row[heading] }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}
