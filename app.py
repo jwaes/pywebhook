@@ -13,7 +13,7 @@ def respond():
         print(request.data)
         return Response(status=400)
     else:
-        print("OK:", request.json, sep=" ") 
+        print("OK:", request.json, "|", request.remote_addr, sep=" ") 
 
         influxdb.write_points(
             [
@@ -32,6 +32,15 @@ def respond():
         )
         return Response(status=200)
     
+
+@app.route('/')
+def index():
+    return 'welcome'
+
+@app.route('/history')
+def history():
+    return 'history comes here'    
+
 
 if __name__ == "__main__":
     app.run(debug=True)
