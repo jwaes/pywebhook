@@ -1,6 +1,11 @@
-from flask import Flask, request, Response
+from flask import Flask, request, Response, render_template
 from flask_influxdb import InfluxDB
 import json
+
+if request.headers.getlist("X-Forwarded-For"):
+   ip = request.headers.getlist("X-Forwarded-For")[0]
+else:
+   ip = request.remote_addr
 
 app = Flask(__name__)
 app.config.from_pyfile("config.cfg")
@@ -13,7 +18,7 @@ def respond():
         print(request.data)
         return Response(status=400)
     else:
-        print("OK:", request.json, "|", request.remote_addr, sep=" ") 
+        print("OK:", request.json, "|", ip, sep=" ") 
 
         influxdb.write_points(
             [
@@ -34,8 +39,8 @@ def respond():
     
 
 @app.route('/')
-def index():
-    return 'welcome'
+def home():
+    return render_template("home.html", content="Helloooowww")
 
 @app.route('/history')
 def history():
