@@ -4,12 +4,15 @@
 
 {% block content %}
 <h1>{{ measurement }}</h1>
-<table>
-    <tr>
-        {% for heading in columns %}
-            <th>{{ heading }}</th>
-        {% endfor %}
-    </tr>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            {% for heading in columns %}
+                <th scope="col">{{ heading }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
     {% for row in points %}
         <tr>
             {% set rowloop = loop %}
@@ -18,5 +21,6 @@
             {% endfor %}
         </tr>
     {% endfor %}
+</tbody>    
 </table>
 {% endblock %}
