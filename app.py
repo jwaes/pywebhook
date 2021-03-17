@@ -24,12 +24,14 @@ def respond():
             [
                 {
                     "fields": {
-                    "action": request.json['action'],
-                    "source": request.json['source'],
-                    "ticker": request.json['ticker'],
-                    "exchange": request.json['exchange'],
-                    "interval": request.json['interval'],
-                    "close": float(request.json['close'])
+                        "close": float(request.json['close']   )
+                    },
+                    "tags":{
+                        "action": request.json['action'],
+                        "source": request.json['source'],
+                        "ticker": request.json['ticker'],
+                        "exchange": request.json['exchange'],
+                        "interval": request.json['interval'],
                     },
                     "measurement": "tv_webhook_data",
                 }
@@ -46,27 +48,27 @@ def home():
 def history():
     return 'history comes here'
 
-@app.route('/table') 
-def table():
-    data_measurement = "tv_webhook_data"
-    # OK: {'action': 'buy', 'source': 'mdx', 'user': 'jaco', 'ticker': 'BTCUSD', 'exchange': 'BYBIT', 'interval': '15', 'close': 57752} | 52.32.178.7
-    data_tags = ["time", "source", "ticker", "exchange", "interval", "action", "close"]
+# @app.route('/table') 
+# def table():
+#     data_measurement = "tv_webhook_data"
+#     # OK: {'action': 'buy', 'source': 'mdx', 'user': 'jaco', 'ticker': 'BTCUSD', 'exchange': 'BYBIT', 'interval': '15', 'close': 57752} | 52.32.178.7
+#     data_tags = ["time", "source", "ticker", "exchange", "interval", "action", "close"]
 
-    tabledata = influxdb.query(
-        "SELECT {0} from {1} where ticker='BTCUSD' and source='vmc'".format(", ".join(data_tags), data_measurement)
-    )
+#     tabledata = influxdb.query(
+#         "SELECT {0} from {1} where ticker='BTCUSD' and source='vmc'".format(", ".join(data_tags), data_measurement)
+#     )
 
-    data_points = []
-    for measurement, tags in tabledata.keys():
-        for p in tabledata.get_points(measurement=measurement, tags=tags):
-            data_points.append(p)
+#     data_points = []
+#     for measurement, tags in tabledata.keys():
+#         for p in tabledata.get_points(measurement=measurement, tags=tags):
+#             data_points.append(p)
 
-    return render_template(
-        "table.html",
-        measurement=data_measurement,
-        columns=data_tags,
-        points=data_points,
-        )    
+#     return render_template(
+#         "table.html",
+#         measurement=data_measurement,
+#         columns=data_tags,
+#         points=data_points,
+#         )    
 
 
 
